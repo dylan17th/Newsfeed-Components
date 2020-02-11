@@ -117,42 +117,47 @@ let divMain = document.querySelector('.articles');
 
 function comCreator(title, d, p1, p2, p3){
   //creating a div class called article 
-  let div = document.createElement('div').classList.add('article');
+  let div = document.createElement('div');
+  //added a class to the div element
+  div.classList.add('article');
   //creating the h2 headline 
   let heading = document.createElement('h2');
   //creating paragraph for date 
-  let paraD = document.createElement('p').classList.add('date');
+  let paraD = document.createElement('p');
+  //added a class to the paraD element
+  paraD.classList.add('date');
   //creating 3 paragraphs for the content
   let para1 = document.createElement('p');
   let para2 = document.createElement('p');
   let para3 = document.createElement('p');
   //creating the span element
-  let expandButton = document.createElement('span').classList.add('expandButton');
+  let expandButton = document.createElement('span')
+  //added a class to the expandButton 
+  expandButton.classList.add('expandButton');
   //creating text content
   heading.textContent = title;
   paraD.textContent = d;
   para1.textContent = p1;
   para2.textContent = p2;
   para3.textContent = p3;
+  expandButton.textContent = '\u25BC';
   //appending all children to the article class
   div.appendChild(heading);
   div.appendChild(paraD);
   div.appendChild(para1);
   div.appendChild(para2);
   div.appendChild(para3);
-  //creating a function for the toggle event 
-  function articleOpen(){
-    div.classList.add('article-open');
-  }
+  div.appendChild(expandButton);
   //creating an event listener for the expandButton
-  expandButton.addEventListener('toggle', articleOpen);
+  expandButton.addEventListener('click', ()=> {
+    div.classList.toggle('article-open');
+  });
 
   return div 
 }
 
 let articleArray = data.map( item => {
   let article = comCreator(item.title, item.date, item.firstParagraph,item.secondParagraph,item.thirdParagraph)
-  return article
+  return divMain.appendChild(article)
 })
 
-mainDiv.appendChild(articleArray);
